@@ -1,12 +1,12 @@
-package util
+package validate
 
 import (
     "strings"
     "unicode"
 )
 
-// ValidatePassword checks if the provided password meets certain criteria (e.g., length).
-func ValidatePassword(password string) bool {
+// Password checks if the provided password meets certain criteria (e.g., length).
+func Password(password string) bool {
     // Minimum length requirement
     minPasswordLength := 8
     if len(password) < minPasswordLength {

@@ -1,8 +1,8 @@
-package util
+package validate
 
 import "testing"
 
-func TestValidatePassword(t *testing.T) {
+func TestPassword(t *testing.T) {
     // Test cases for password validation
     testCases := []struct {
         password string
@@ -14,9 +14,9 @@ func TestValidatePassword(t *testing.T) {
     }
 
     for _, tc := range testCases {
-        result := ValidatePassword(tc.password)
+        result := Password(tc.password)
         if result != tc.expected {
-            t.Errorf("ValidatePassword(%s) = %v; expected %v", tc.password, result, tc.expected)
+            t.Errorf("Password(%s) = %v; expected %v", tc.password, result, tc.expected)
         }
     }
 }
