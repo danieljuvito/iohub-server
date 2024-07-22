@@ -9,5 +9,5 @@ type UserSignUpSpec struct {
 }
 
 type UserSignUpResult struct {
-    ID int
+    ID string
 }

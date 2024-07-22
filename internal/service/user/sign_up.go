@@ -4,6 +4,7 @@ import (
     "context"
     "github.com/danieljuvito/iohub-server/internal/interface/repository"
     "github.com/danieljuvito/iohub-server/internal/interface/service"
+    "github.com/danieljuvito/iohub-server/internal/model"
     "github.com/danieljuvito/iohub-server/internal/util/errorutil"
     "golang.org/x/crypto/bcrypt"
 )
@@ -21,7 +22,7 @@ func (s *Service) SignUp(ctx context.Context, spec service.UserSignUpSpec) (resu
         return result, err
     }
     if len(getResult.Data) != 0 {
-        return result, errorutil.AlreadyExistError.Wrap("user is already exist")
+        return result, errorutil.AlreadyExist.Wrap("user is already exist")
     }
 
     // Generate a salted hash
@@ -32,13 +33,15 @@ func (s *Service) SignUp(ctx context.Context, spec service.UserSignUpSpec) (resu
     spec.User.Password = string(hashedPassword)
 
     createResult, err := s.userRepository.Create(ctx, repository.UserCreateSpec{
-        User: spec.User,
+        Models: []*model.User{
+            spec.User,
+        },
     })
     if err != nil {
         return result, err
     }
 
-    return service.UserSignUpResult{
-        ID: createResult.ID,
-    }, nil
+    result.ID = createResult.IDs[0]
+
+    return result, nil
 }

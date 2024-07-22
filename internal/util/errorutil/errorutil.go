@@ -10,8 +10,10 @@ type Error struct {
 }
 
 var (
-    InvalidError      = Error{errors.New("invalid")}
-    AlreadyExistError = Error{errors.New("already exist")}
+    Invalid      = Error{errors.New("invalid")}
+    AlreadyExist = Error{errors.New("already exist")}
+    NotFound     = Error{errors.New("not found")}
+    Unauthorized = Error{errors.New("unauthorized")}
 )
 
 func (err Error) Wrap(msg string) error {

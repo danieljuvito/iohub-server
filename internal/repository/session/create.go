@@ -1,4 +1,4 @@
-package user
+package session
 
 import (
     "context"
@@ -6,12 +6,12 @@ import (
     "go.mongodb.org/mongo-driver/bson/primitive"
 )
 
-func (r Repository) Create(ctx context.Context, spec repository.UserCreateSpec) (result repository.UserCreateResult, err error) {
+func (r Repository) Create(ctx context.Context, spec repository.SessionCreateSpec) (result repository.SessionCreateResult, err error) {
     var entities []interface{}
     for _, model := range spec.Models {
         entities = append(entities, &Entity{
-            Email:    model.Email,
-            Password: model.Password,
+            UserID:    model.UserID,
+            ExpiresAt: model.ExpiresAt,
         })
     }
 

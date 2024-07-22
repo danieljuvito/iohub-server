@@ -5,9 +5,9 @@ import (
 )
 
 type UserCreateSpec struct {
-    *model.User
+    Models []*model.User
 }
 
 type UserCreateResult struct {
-    ID int
+    IDs []string
 }

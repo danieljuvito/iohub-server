@@ -1,4 +1,4 @@
-package user
+package session
 
 import (
     "github.com/danieljuvito/iohub-server/internal/interface/repository"
@@ -9,8 +9,8 @@ type Repository struct {
     collection *mongo.Collection
 }
 
-func NewRepository(db *mongo.Database) repository.User {
+func NewRepository(db *mongo.Database) repository.Session {
     return &Repository{
-        collection: db.Collection("users"),
+        collection: db.Collection("sessions"),
     }
 }

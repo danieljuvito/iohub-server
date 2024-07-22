@@ -6,18 +6,18 @@ import (
 )
 
 type User struct {
-    ID       int
+    ID       string
     Email    string
     Password string
 }
 
 func (u *User) Validate() error {
     if !validate.Email(u.Email) {
-        return errorutil.InvalidError.Wrap("invalid email")
+        return errorutil.Invalid.Wrap("invalid email")
     }
 
     if !validate.Password(u.Password) {
-        return errorutil.InvalidError.Wrap("invalid password")
+        return errorutil.Invalid.Wrap("invalid password")
     }
 
     return nil

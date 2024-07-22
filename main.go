@@ -2,6 +2,7 @@ package main
 
 import (
     "github.com/danieljuvito/iohub-server/internal/controller"
+    "github.com/danieljuvito/iohub-server/internal/controller/middleware"
     "github.com/danieljuvito/iohub-server/internal/repository"
     "github.com/danieljuvito/iohub-server/internal/service"
     "github.com/danieljuvito/iohub-server/internal/util/mongo"
@@ -42,6 +43,8 @@ func main() {
     }
 
     db := client.Database("iohub")
+
+    middleware.InitAuth(db)
 
     e := echo.New()
 
