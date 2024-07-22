@@ -2,12 +2,13 @@ package jwtutil
 
 import (
     "github.com/golang-jwt/jwt/v5"
+    "os"
     "time"
 
     //    "time"
 )
 
-const secretKey = "your-secret-key"
+var secretKey = os.Getenv("JWT_KEY")
 
 type Claims struct {
     Name string `json:"name"`
