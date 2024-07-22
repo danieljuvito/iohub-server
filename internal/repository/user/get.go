@@ -2,8 +2,8 @@ package user
 
 import (
     "context"
-    "github.com/danieljuvito/iohub-server/internal/interface/repository"
-    "github.com/danieljuvito/iohub-server/internal/model"
+    "github.com/danieljuvito/iohub-server/internal/domain/interface/repository"
+    "github.com/danieljuvito/iohub-server/internal/domain/model"
     "go.mongodb.org/mongo-driver/bson"
 )
 

@@ -2,7 +2,7 @@ package user
 
 import (
     "context"
-    "github.com/danieljuvito/iohub-server/internal/interface/repository"
+    "github.com/danieljuvito/iohub-server/internal/domain/interface/repository"
     "go.mongodb.org/mongo-driver/bson/primitive"
 )
 

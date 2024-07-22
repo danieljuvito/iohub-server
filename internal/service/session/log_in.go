@@ -3,9 +3,9 @@ package session
 import (
     "context"
     //    "encoding/base64"
-    "github.com/danieljuvito/iohub-server/internal/interface/repository"
-    "github.com/danieljuvito/iohub-server/internal/interface/service"
-    "github.com/danieljuvito/iohub-server/internal/model"
+    "github.com/danieljuvito/iohub-server/internal/domain/interface/repository"
+    "github.com/danieljuvito/iohub-server/internal/domain/interface/service"
+    "github.com/danieljuvito/iohub-server/internal/domain/model"
     "github.com/danieljuvito/iohub-server/internal/util/errorutil"
     "github.com/danieljuvito/iohub-server/internal/util/jwtutil"
     "golang.org/x/crypto/bcrypt"

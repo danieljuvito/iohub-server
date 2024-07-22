@@ -1,6 +1,6 @@
 package repository
 
-import "github.com/danieljuvito/iohub-server/internal/model"
+import "github.com/danieljuvito/iohub-server/internal/domain/model"
 
 type UserGetSpec struct {
     Email string

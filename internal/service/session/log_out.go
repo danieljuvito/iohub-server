@@ -3,8 +3,8 @@ package session
 import (
     "context"
     "errors"
-    "github.com/danieljuvito/iohub-server/internal/interface/repository"
-    "github.com/danieljuvito/iohub-server/internal/interface/service"
+    "github.com/danieljuvito/iohub-server/internal/domain/interface/repository"
+    "github.com/danieljuvito/iohub-server/internal/domain/interface/service"
 )
 
 func (s *Service) LogOut(ctx context.Context, spec service.SessionLogOutSpec) (result service.SessionLogOutResult, err error) {

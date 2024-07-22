@@ -1,7 +1,7 @@
 package repository
 
 import (
-    "github.com/danieljuvito/iohub-server/internal/model"
+    "github.com/danieljuvito/iohub-server/internal/domain/model"
 )
 
 type UserCreateSpec struct {

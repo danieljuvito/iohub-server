@@ -1,7 +1,7 @@
 package session
 
 import (
-    "github.com/danieljuvito/iohub-server/internal/interface/service"
+    "github.com/danieljuvito/iohub-server/internal/domain/interface/service"
     "github.com/labstack/echo/v4"
     "net/http"
 )

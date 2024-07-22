@@ -1,7 +1,7 @@
 package service
 
 import (
-    "github.com/danieljuvito/iohub-server/internal/interface/service"
+    "github.com/danieljuvito/iohub-server/internal/domain/interface/service"
     "github.com/danieljuvito/iohub-server/internal/repository"
     "github.com/danieljuvito/iohub-server/internal/service/session"
     "github.com/danieljuvito/iohub-server/internal/service/user"

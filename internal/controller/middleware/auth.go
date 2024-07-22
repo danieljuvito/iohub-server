@@ -1,7 +1,7 @@
 package middleware
 
 import (
-    "github.com/danieljuvito/iohub-server/internal/model"
+    "github.com/danieljuvito/iohub-server/internal/domain/model"
     "github.com/danieljuvito/iohub-server/internal/repository/session"
     "github.com/danieljuvito/iohub-server/internal/util/jwtutil"
     "github.com/golang-jwt/jwt/v5"

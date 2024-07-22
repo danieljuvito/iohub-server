@@ -1,7 +1,7 @@
 package repository
 
 import (
-    "github.com/danieljuvito/iohub-server/internal/interface/repository"
+    "github.com/danieljuvito/iohub-server/internal/domain/interface/repository"
     "github.com/danieljuvito/iohub-server/internal/repository/session"
     "github.com/danieljuvito/iohub-server/internal/repository/user"
     "go.mongodb.org/mongo-driver/mongo"
