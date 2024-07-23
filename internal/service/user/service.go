@@ -8,14 +8,17 @@ import (
 type Service struct {
     userRepository     repository.User
     followeeRepository repository.Followee
+    followerRepository repository.Follower
 }
 
 func NewService(
     userRepository repository.User,
     followeeRepository repository.Followee,
+    followerRepository repository.Follower,
 ) service.User {
     return &Service{
         userRepository:     userRepository,
         followeeRepository: followeeRepository,
+        followerRepository: followerRepository,
     }
 }

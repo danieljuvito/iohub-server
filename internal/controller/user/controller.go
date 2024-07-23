@@ -22,4 +22,5 @@ func NewController(
     c.Get()
     c.List()
     c.SignUp()
+    c.Follow()
 }

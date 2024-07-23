@@ -1,4 +1,4 @@
-package followee
+package follower
 
 import (
     "context"
@@ -8,7 +8,7 @@ import (
     "go.mongodb.org/mongo-driver/bson/primitive"
 )
 
-func (r *Repository) Get(ctx context.Context, spec repository.FolloweeGetSpec) (result repository.FolloweeGetResult, err error) {
+func (r *Repository) Get(ctx context.Context, spec repository.FollowerGetSpec) (result repository.FollowerGetResult, err error) {
     orQuery := bson.A{}
     if len(spec.UserID) != 0 {
         objectID, _ := primitive.ObjectIDFromHex(spec.UserID)
@@ -30,10 +30,10 @@ func (r *Repository) Get(ctx context.Context, spec repository.FolloweeGetSpec) (
     }
 
     for _, entity := range entities {
-        result.Data = append(result.Data, &model.Followee{
+        result.Data = append(result.Data, &model.Follower{
             ID:             entity.ID.Hex(),
             UserID:         entity.UserID.Hex(),
-            FolloweeUserID: entity.FolloweeUserID.Hex(),
+            FollowerUserID: entity.FollowerUserID.Hex(),
         })
     }
 
