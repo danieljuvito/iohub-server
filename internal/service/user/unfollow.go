@@ -19,24 +19,20 @@ func (s *Service) Unfollow(ctx context.Context, spec service.UserUnfollowSpec) (
         return result, errorutil.NotFound.Wrap("user not found")
     }
 
-    _, err = s.followeeRepository.Create(ctx, repository.FolloweeCreateSpec{
-        Data: []*model.Followee{
-            {
-                UserID:         spec.UserID,
-                FolloweeUserID: spec.FolloweeUserID,
-            },
+    _, err = s.followeeRepository.Delete(ctx, repository.FolloweeDeleteSpec{
+        Followee: &model.Followee{
+            UserID:         spec.UserID,
+            FolloweeUserID: spec.FolloweeUserID,
         },
     })
     if err != nil {
         return result, err
     }
 
-    _, err = s.followerRepository.Create(ctx, repository.FollowerCreateSpec{
-        Data: []*model.Follower{
-            {
-                UserID:         spec.FolloweeUserID,
-                FollowerUserID: spec.UserID,
-            },
+    _, err = s.followerRepository.Delete(ctx, repository.FollowerDeleteSpec{
+        Follower: &model.Follower{
+            UserID:         spec.FolloweeUserID,
+            FollowerUserID: spec.UserID,
         },
     })
     if err != nil {

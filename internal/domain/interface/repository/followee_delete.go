@@ -1,7 +1,9 @@
 package repository
 
+import "github.com/danieljuvito/iohub-server/internal/domain/model"
+
 type FolloweeDeleteSpec struct {
-    IDs []string
+    *model.Followee
 }
 
 type FolloweeDeleteResult struct {

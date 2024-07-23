@@ -1,7 +1,9 @@
 package repository
 
+import "github.com/danieljuvito/iohub-server/internal/domain/model"
+
 type FollowerDeleteSpec struct {
-    IDs []string
+    *model.Follower
 }
 
 type FollowerDeleteResult struct {

@@ -8,16 +8,13 @@ import (
 )
 
 func (r *Repository) Delete(ctx context.Context, spec repository.FolloweeDeleteSpec) (result repository.FolloweeDeleteResult, err error) {
-    var objectIDs []primitive.ObjectID
-    for _, id := range spec.IDs {
-        objectID, err := primitive.ObjectIDFromHex(id)
-        if err != nil {
-            return result, nil
-        }
-        objectIDs = append(objectIDs, objectID)
-    }
+    userID, _ := primitive.ObjectIDFromHex(spec.UserID)
+    followeeUserID, _ := primitive.ObjectIDFromHex(spec.FolloweeUserID)
 
-    res, err := r.collection.DeleteMany(ctx, bson.M{"_id": bson.M{"$in": objectIDs}})
+    res, err := r.collection.DeleteOne(ctx, bson.M{
+        "user_id":          userID,
+        "followee_user_id": followeeUserID,
+    })
     if err != nil {
         return result, err
     }

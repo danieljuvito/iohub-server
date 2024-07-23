@@ -23,4 +23,5 @@ func NewController(
     c.List()
     c.SignUp()
     c.Follow()
+    c.Unfollow()
 }
