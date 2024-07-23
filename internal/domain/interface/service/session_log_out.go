@@ -1,8 +1,9 @@
 package service
 
 type SessionLogOutSpec struct {
-    SessionID string
+    ID string
 }
 
 type SessionLogOutResult struct {
+    Count int
 }

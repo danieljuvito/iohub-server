@@ -10,6 +10,7 @@ func (r Repository) Create(ctx context.Context, spec repository.UserCreateSpec) 
     var entities []interface{}
     for _, model := range spec.Models {
         entities = append(entities, &Entity{
+            Name:     model.Name,
             Email:    model.Email,
             Password: model.Password,
         })

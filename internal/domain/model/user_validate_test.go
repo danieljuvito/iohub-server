@@ -12,15 +12,15 @@ func TestUser_Validate(t *testing.T) {
         isError bool
     }{
         {
-            User{ID: 1, Email: "user@example.com", Password: "StrongP@ssw0rd"},
+            User{ID: "1", Email: "user@example.com", Password: "StrongP@ssw0rd"},
             false, // Valid user
         },
         {
-            User{ID: 2, Email: "invalid-email", Password: "weak"},
+            User{ID: "2", Email: "invalid-email", Password: "weak"},
             true, // Invalid email
         },
         {
-            User{ID: 3, Email: "user@example.com", Password: "short"},
+            User{ID: "3", Email: "user@example.com", Password: "short"},
             true, // Invalid password
         },
     }

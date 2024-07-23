@@ -1,11 +1,10 @@
 package model
 
-import (
-    "time"
-)
+import "time"
 
-type Session struct {
+type Story struct {
     ID        string
     UserID    string
+    Content   string
     ExpiresAt time.Time
 }

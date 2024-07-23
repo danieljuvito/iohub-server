@@ -7,8 +7,8 @@ import (
     "github.com/danieljuvito/iohub-server/internal/domain/interface/service"
 )
 
-func (s *Service) LogOut(ctx context.Context, spec service.SessionLogOutSpec) (result service.SessionLogOutResult, err error) {
-    deleteResult, err := s.sessionRepository.Delete(ctx, repository.SessionDeleteSpec{
+func (s *Service) Delete(ctx context.Context, spec service.StoryDeleteSpec) (result service.StoryDeleteResult, err error) {
+    deleteResult, err := s.storyRepository.Delete(ctx, repository.StoryDeleteSpec{
         IDs: []string{spec.ID},
     })
     if err != nil {

@@ -1,4 +1,4 @@
-package user
+package story
 
 import (
     "github.com/danieljuvito/iohub-server/internal/domain/interface/service"
@@ -7,18 +7,17 @@ import (
 
 type controller struct {
     *echo.Group
-    userService service.User
+    sessionService service.Session
 }
 
 func NewController(
     echo *echo.Echo,
-    userService service.User,
+    sessionService service.Session,
 ) {
     c := controller{
-        Group:       echo.Group("/users"),
-        userService: userService,
+        Group:          echo.Group("/sessions"),
+        sessionService: sessionService,
     }
-    c.Identity()
-    c.Get()
-    c.SignUp()
+    c.LogIn()
+    c.LogOut()
 }

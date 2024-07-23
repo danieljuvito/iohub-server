@@ -20,14 +20,14 @@ func (s *Service) LogIn(ctx context.Context, spec service.SessionLogInSpec) (res
         return result, err
     }
     if len(getResult.Data) != 1 {
-        return result, errorutil.NotFound.Wrap("user not found")
+        return result, errorutil.Unauthorized
     }
 
     user := getResult.Data[0]
 
     err = bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(spec.Password))
     if err != nil {
-        return result, errorutil.Unauthorized.Wrap("incorrect password")
+        return result, errorutil.Unauthorized
     }
 
     session := model.Session{

@@ -18,7 +18,7 @@ func (c *controller) LogOut() {
         }
 
         _, err := c.sessionService.LogOut(ctx, service.SessionLogOutSpec{
-            SessionID: session.ID,
+            ID: session.ID,
         })
         if err != nil {
             return err

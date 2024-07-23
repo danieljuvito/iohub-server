@@ -8,6 +8,7 @@ import (
 )
 
 type SignUpRequest struct {
+    Name     string `json:"name"`
     Email    string `json:"email"`
     Password string `json:"password"`
 }
@@ -27,6 +28,7 @@ func (c *controller) SignUp() {
 
         res, err := c.userService.SignUp(ctx, service.UserSignUpSpec{
             User: &model.User{
+                Name:     req.Name,
                 Email:    req.Email,
                 Password: req.Password,
             },

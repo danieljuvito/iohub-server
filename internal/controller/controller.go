@@ -12,6 +12,11 @@ import (
 )
 
 func NewController(e *echo.Echo, s *service.Service) {
+    e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
+        AllowOrigins: []string{"*"},
+        AllowHeaders: []string{echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept, echo.HeaderAuthorization},
+        AllowMethods: []string{"*"},
+    }))
     e.Use(middleware.Recover())
     e.Use(middleware.Logger())
 

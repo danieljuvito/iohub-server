@@ -59,15 +59,10 @@ func Auth(next echo.HandlerFunc) echo.HandlerFunc {
             return c.JSON(http.StatusUnauthorized, "session is expired")
         }
 
-        if !entity.LogOutAt.IsZero() {
-            return c.JSON(http.StatusUnauthorized, "session has already logged out")
-        }
-
         c.Set("session", model.Session{
             ID:        entity.ID.Hex(),
             UserID:    entity.UserID,
             ExpiresAt: entity.ExpiresAt,
-            LogOutAt:  entity.LogOutAt,
         })
 
         return next(c)
