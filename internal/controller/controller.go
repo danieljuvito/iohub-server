@@ -3,6 +3,7 @@ package controller
 import (
     "github.com/danieljuvito/iohub-server/internal/controller/ping"
     "github.com/danieljuvito/iohub-server/internal/controller/session"
+    "github.com/danieljuvito/iohub-server/internal/controller/story"
     "github.com/danieljuvito/iohub-server/internal/controller/user"
     "github.com/danieljuvito/iohub-server/internal/service"
     "github.com/danieljuvito/iohub-server/internal/util/errorutil"
@@ -30,4 +31,5 @@ func NewController(e *echo.Echo, s *service.Service) {
     ping.NewController(e)
     user.NewController(e, s.UserService)
     session.NewController(e, s.SessionService)
+    story.NewController(e, s.StoryService)
 }

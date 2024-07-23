@@ -32,7 +32,7 @@ func (s *Service) LogIn(ctx context.Context, spec service.SessionLogInSpec) (res
 
     session := model.Session{
         UserID:    user.ID,
-        ExpiresAt: time.Now().Add(time.Hour * 24),
+        ExpiresAt: s.time.Now().Add(time.Hour * 24),
     }
     createResult, err := s.sessionRepository.Create(ctx, repository.SessionCreateSpec{
         Models: []*model.Session{

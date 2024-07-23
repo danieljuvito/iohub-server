@@ -7,17 +7,16 @@ import (
 
 type controller struct {
     *echo.Group
-    sessionService service.Session
+    storyService service.Story
 }
 
 func NewController(
     echo *echo.Echo,
-    sessionService service.Session,
+    storyService service.Story,
 ) {
     c := controller{
-        Group:          echo.Group("/sessions"),
-        sessionService: sessionService,
+        Group:        echo.Group("/stories"),
+        storyService: storyService,
     }
-    c.LogIn()
-    c.LogOut()
+    c.Create()
 }

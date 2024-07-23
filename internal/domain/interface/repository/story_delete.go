@@ -1,9 +1,9 @@
 package repository
 
-type StoryDeleteSpec struct {
+type SessionDeleteSpec struct {
     IDs []string
 }
 
-type StoryDeleteResult struct {
+type SessionDeleteResult struct {
     Count int
 }
