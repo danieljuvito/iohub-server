@@ -8,9 +8,8 @@ import (
 )
 
 type GetResponse struct {
-    ID    string `json:"id"`
-    Name  string `json:"name"`
-    Email string `json:"email"`
+    ID   string `json:"id"`
+    Name string `json:"name"`
 }
 
 func (c *controller) Get() {
@@ -26,9 +25,8 @@ func (c *controller) Get() {
             return err
         }
         return e.JSON(http.StatusOK, GetResponse{
-            ID:    res.ID,
-            Name:  res.Name,
-            Email: res.Email,
+            ID:   res.ID,
+            Name: res.Name,
         })
     }, middleware.Auth)
 }

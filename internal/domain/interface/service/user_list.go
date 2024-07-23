@@ -5,9 +5,17 @@ import (
 )
 
 type UserListSpec struct {
-    Search string
+    UserID string
+    Name   string
+    Page   int
+    Limit  int
 }
 
 type UserListResult struct {
-    Data []*model.User
+    Data []UserListResultData
+}
+
+type UserListResultData struct {
+    *model.User
+    *model.Followee
 }

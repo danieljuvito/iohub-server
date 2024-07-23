@@ -26,7 +26,7 @@ func (c *controller) Identity() {
         if err != nil {
             return err
         }
-        return e.JSON(http.StatusOK, GetResponse{
+        return e.JSON(http.StatusOK, IdentityResponse{
             ID:    res.ID,
             Name:  res.Name,
             Email: res.Email,

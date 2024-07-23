@@ -20,5 +20,6 @@ func NewController(
     }
     c.Identity()
     c.Get()
+    c.List()
     c.SignUp()
 }
