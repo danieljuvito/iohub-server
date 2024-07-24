@@ -18,5 +18,7 @@ func NewController(
         Group:        echo.Group("/stories"),
         storyService: storyService,
     }
+    c.Get()
+    c.List()
     c.Create()
 }

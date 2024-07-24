@@ -29,7 +29,7 @@ func NewController(e *echo.Echo, s *service.Service) {
     }).Handler
 
     ping.NewController(e)
-    story.NewController(e, s.UserService)
+    user.NewController(e, s.UserService)
     session.NewController(e, s.SessionService)
     story.NewController(e, s.StoryService)
 }
