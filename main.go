@@ -55,11 +55,11 @@ func main() {
     )
 
     apiPort := "8080"
-    if apiPortEnv, err := strconv.Atoi(os.Getenv("API_PORT")); err == nil {
+    if apiPortEnv, err := strconv.Atoi(os.Getenv("PORT")); err == nil {
         apiPort = strconv.Itoa(apiPortEnv)
     }
 
-    err = e.Start(":" + apiPort)
+    err = e.Start("0.0.0.0:" + apiPort)
     if err != nil {
         panic(err)
     }
