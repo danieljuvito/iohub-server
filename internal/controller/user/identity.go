@@ -14,6 +14,13 @@ type IdentityResponse struct {
     Email string `json:"email"`
 }
 
+// Identity handles GET requests for retrieving user identity details.
+// @Summary Get user identity
+// @Description Retrieve user identity information.
+// @Tags Users
+// @Produce json
+// @Success 200 {object} IdentityResponse
+// @Router /identity [get]
 func (c *controller) Identity() {
     c.GET("/identity", func(e echo.Context) error {
         ctx := e.Request().Context()

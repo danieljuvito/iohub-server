@@ -17,6 +17,15 @@ type SignUpResponse struct {
     ID string `json:"id"`
 }
 
+// SignUp handles POST requests for user sign-up.
+// @Summary User sign-up
+// @Description Register a new user.
+// @Tags Users
+// @Accept json
+// @Produce json
+// @Param request body SignUpRequest true "Sign-up request"
+// @Success 201 {object} SignUpResponse
+// @Router /sign-up [post]
 func (c *controller) SignUp() {
     c.POST("/sign-up", func(e echo.Context) error {
         ctx := e.Request().Context()

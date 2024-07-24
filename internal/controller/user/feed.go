@@ -19,6 +19,13 @@ type FeedResponse struct {
     IsFollowed bool   `json:"is_followed"`
 }
 
+// Feed handles GET requests for user feeds.
+// @Summary Get user feeds
+// @Description Retrieve user feeds.
+// @Tags Users
+// @Produce json
+// @Success 200 {array} FeedResponse
+// @Router /feed [get]
 func (c *controller) Feed() {
     c.GET("/feed", func(e echo.Context) error {
         ctx := e.Request().Context()

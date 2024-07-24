@@ -9,6 +9,7 @@ import (
     "github.com/danieljuvito/iohub-server/internal/util/errorutil"
     "github.com/labstack/echo/v4"
     "github.com/labstack/echo/v4/middleware"
+    echoSwagger "github.com/swaggo/echo-swagger"
     "net/http"
 )
 
@@ -28,6 +29,7 @@ func NewController(e *echo.Echo, s *service.Service) {
         errorutil.Unauthorized: http.StatusUnauthorized,
     }).Handler
 
+    e.GET("/swagger/*", echoSwagger.WrapHandler)
     ping.NewController(e)
     user.NewController(e, s.UserService)
     session.NewController(e, s.SessionService)

@@ -1,0 +1,335 @@
+definitions:
+  session.LogInRequest:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    type: object
+  session.LogInResponse:
+    properties:
+      token:
+        type: string
+    type: object
+  story.CreateRequest:
+    properties:
+      content:
+        type: string
+    type: object
+  story.CreateResponse:
+    properties:
+      id:
+        type: string
+    type: object
+  story.GetResponse:
+    properties:
+      content:
+        type: string
+      id:
+        type: string
+    type: object
+  story.ListResponse:
+    properties:
+      story_id:
+        type: string
+    type: object
+  user.FeedResponse:
+    properties:
+      is_followed:
+        type: boolean
+      name:
+        type: string
+      story_count:
+        type: integer
+      user_id:
+        type: string
+    type: object
+  user.GetResponse:
+    properties:
+      id:
+        type: string
+      name:
+        type: string
+    type: object
+  user.IdentityResponse:
+    properties:
+      email:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+    type: object
+  user.ListResponse:
+    properties:
+      id:
+        type: string
+      is_followed:
+        type: boolean
+      name:
+        type: string
+    type: object
+  user.SignUpRequest:
+    properties:
+      email:
+        type: string
+      name:
+        type: string
+      password:
+        type: string
+    type: object
+  user.SignUpResponse:
+    properties:
+      id:
+        type: string
+    type: object
+info:
+  contact:
+    email: danieljuvito@outlook.com
+    name: Daniel Juvito
+    url: danieljuvito.github.io
+  description: This is API server for IOHub App.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: IOHub Server
+  version: "1.0"
+paths:
+  /feed:
+    get:
+      description: Retrieve user feeds.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/user.FeedResponse'
+            type: array
+      summary: Get user feeds
+      tags:
+      - Users
+  /follow/{id}:
+    patch:
+      description: Follow a specific user by ID.
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successfully followed user
+          schema:
+            type: string
+      summary: Follow a user
+      tags:
+      - Users
+  /identity:
+    get:
+      description: Retrieve user identity information.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/user.IdentityResponse'
+      summary: Get user identity
+      tags:
+      - Users
+  /log-in:
+    post:
+      consumes:
+      - application/json
+      description: Authenticates a user based on email and password.
+      parameters:
+      - description: User login request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/session.LogInRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successful login
+          schema:
+            $ref: '#/definitions/session.LogInResponse'
+        "400":
+          description: Bad request
+          schema: {}
+      summary: User login
+      tags:
+      - Sessions
+  /log-out:
+    delete:
+      description: Logs out the currently authenticated user.
+      responses:
+        "204":
+          description: No content
+        "401":
+          description: Unauthorized
+          schema: {}
+      security:
+      - ApiKeyAuth: []
+      summary: User logout
+      tags:
+      - Sessions
+  /ping:
+    get:
+      description: Responds with "pong" as a health check.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: pong
+          schema:
+            type: string
+      summary: Ping endpoint
+      tags:
+      - Health
+  /sign-up:
+    post:
+      consumes:
+      - application/json
+      description: Register a new user.
+      parameters:
+      - description: Sign-up request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/user.SignUpRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/user.SignUpResponse'
+      summary: User sign-up
+      tags:
+      - Users
+  /stories:
+    get:
+      description: Retrieve a list of stories.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/story.ListResponse'
+            type: array
+      summary: Get a list of stories
+      tags:
+      - Stories
+  /story:
+    post:
+      consumes:
+      - application/json
+      description: Creates a new story with the provided content.
+      parameters:
+      - description: Story content
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/story.CreateRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Story created successfully
+          schema:
+            $ref: '#/definitions/story.CreateResponse'
+        "400":
+          description: Bad request
+          schema: {}
+      summary: Create a story
+      tags:
+      - Stories
+  /story/{id}:
+    get:
+      description: Retrieves a story based on the provided ID.
+      parameters:
+      - description: Story ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Story retrieved successfully
+          schema:
+            $ref: '#/definitions/story.GetResponse'
+        "404":
+          description: Story not found
+          schema: {}
+      summary: Get a story by ID
+      tags:
+      - Stories
+  /unfollow/{id}:
+    patch:
+      description: Unfollow a specific user by ID.
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successfully unfollowed user
+          schema:
+            type: string
+      summary: Unfollow a user
+      tags:
+      - Users
+  /users:
+    get:
+      description: Retrieve a list of users.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/user.ListResponse'
+            type: array
+      summary: Get a list of users
+      tags:
+      - Users
+  /users/{id}:
+    get:
+      description: Retrieve user details by ID.
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/user.GetResponse'
+      summary: Get user details
+      tags:
+      - Users
+swagger: "2.0"

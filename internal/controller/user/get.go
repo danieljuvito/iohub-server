@@ -12,6 +12,14 @@ type GetResponse struct {
     Name string `json:"name"`
 }
 
+// Get handles GET requests for retrieving user details.
+// @Summary Get user details
+// @Description Retrieve user details by ID.
+// @Tags Users
+// @Param id path string true "User ID"
+// @Produce json
+// @Success 200 {object} GetResponse
+// @Router /users/{id} [get]
 func (c *controller) Get() {
     c.GET("/:id", func(e echo.Context) error {
         ctx := e.Request().Context()

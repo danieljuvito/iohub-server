@@ -12,8 +12,21 @@ import (
     "os"
     "strconv"
     "strings"
+
+    _ "github.com/danieljuvito/iohub-server/docs"
 )
 
+// @title IOHub Server
+// @version 1.0
+// @description This is API server for IOHub App.
+// @termsOfService http://swagger.io/terms/
+
+// @contact.name Daniel Juvito
+// @contact.url danieljuvito.github.io
+// @contact.email danieljuvito@outlook.com
+
+// @license.name Apache 2.0
+// @license.url http://www.apache.org/licenses/LICENSE-2.0.html
 func main() {
     err := godotenv.Load(".env")
     if err != nil {

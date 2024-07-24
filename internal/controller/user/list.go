@@ -18,6 +18,13 @@ type ListResponse struct {
     IsFollowed bool   `json:"is_followed"`
 }
 
+// List handles GET requests for retrieving a list of users.
+// @Summary Get a list of users
+// @Description Retrieve a list of users.
+// @Tags Users
+// @Produce json
+// @Success 200 {array} ListResponse
+// @Router /users [get]
 func (c *controller) List() {
     c.GET("", func(e echo.Context) error {
         ctx := e.Request().Context()

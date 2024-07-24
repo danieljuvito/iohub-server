@@ -16,6 +16,17 @@ type CreateResponse struct {
     ID string `json:"id"`
 }
 
+// Create handles requests to create a new story.
+//
+// @Summary Create a story
+// @Description Creates a new story with the provided content.
+// @Tags Stories
+// @Accept json
+// @Produce json
+// @Param request body CreateRequest true "Story content"
+// @Success 201 {object} CreateResponse "Story created successfully"
+// @Failure 400 {object} ErrorResponse "Bad request"
+// @Router /story [post]
 func (c *controller) Create() {
     c.POST("", func(e echo.Context) error {
         ctx := e.Request().Context()

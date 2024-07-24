@@ -15,6 +15,17 @@ type LogInResponse struct {
     Token string `json:"token"`
 }
 
+// LogIn handles user login requests.
+//
+// @Summary User login
+// @Description Authenticates a user based on email and password.
+// @Tags Sessions
+// @Accept json
+// @Produce json
+// @Param request body LogInRequest true "User login request"
+// @Success 200 {object} LogInResponse "Successful login"
+// @Failure 400 {object} ErrorResponse "Bad request"
+// @Router /log-in [post]
 func (c *controller) LogIn() {
     c.POST("/log-in", func(e echo.Context) error {
         ctx := e.Request().Context()

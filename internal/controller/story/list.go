@@ -14,6 +14,13 @@ type ListResponse struct {
     StoryID string `json:"story_id"`
 }
 
+// List handles GET requests for the list of stories.
+// @Summary Get a list of stories
+// @Description Retrieve a list of stories.
+// @Tags Stories
+// @Produce json
+// @Success 200 {array} ListResponse
+// @Router /stories [get]
 func (c *controller) List() {
     c.GET("", func(e echo.Context) error {
         ctx := e.Request().Context()

@@ -8,6 +8,14 @@ import (
     "net/http"
 )
 
+// Follow handles PATCH requests to follow a user.
+// @Summary Follow a user
+// @Description Follow a specific user by ID.
+// @Tags Users
+// @Param id path string true "User ID"
+// @Produce json
+// @Success 200 {string} string "Successfully followed user"
+// @Router /follow/{id} [patch]
 func (c *controller) Follow() {
     c.PATCH("/follow/:id", func(e echo.Context) error {
         ctx := e.Request().Context()

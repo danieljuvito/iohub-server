@@ -8,6 +8,14 @@ import (
     "net/http"
 )
 
+// Unfollow handles PATCH requests to unfollow a user.
+// @Summary Unfollow a user
+// @Description Unfollow a specific user by ID.
+// @Tags Users
+// @Param id path string true "User ID"
+// @Produce json
+// @Success 200 {string} string "Successfully unfollowed user"
+// @Router /unfollow/{id} [patch]
 func (c *controller) Unfollow() {
     c.PATCH("/unfollow/:id", func(e echo.Context) error {
         ctx := e.Request().Context()

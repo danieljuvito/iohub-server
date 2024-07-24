@@ -5,6 +5,8 @@ import (
     "github.com/labstack/echo/v4"
 )
 
+type ErrorResponse error
+
 type controller struct {
     *echo.Group
     sessionService service.Session

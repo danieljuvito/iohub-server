@@ -8,6 +8,15 @@ import (
     "net/http"
 )
 
+// LogOut handles user logout requests.
+//
+// @Summary User logout
+// @Description Logs out the currently authenticated user.
+// @Tags Sessions
+// @Security ApiKeyAuth
+// @Success 204 "No content"
+// @Failure 401 {object} ErrorResponse "Unauthorized"
+// @Router /log-out [delete]
 func (c *controller) LogOut() {
     c.DELETE("/log-out", func(e echo.Context) error {
         ctx := e.Request().Context()
