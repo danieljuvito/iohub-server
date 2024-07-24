@@ -1,0 +1,17 @@
+- pipeline: "Deploy"
+  events:
+  - type: "PUSH"
+    refs:
+    - "refs/heads/main"
+  fail_on_prepare_env_warning: true
+  actions:
+  - action: "go build"
+    type: "BUILD"
+    docker_image_name: "library/golang"
+    docker_image_tag: "1.22.2"
+    execute_commands:
+    - "go test"
+    - "go build"
+    volume_mappings:
+    - "/:/src/github.com/danieljuvito/iohub-server"
+    shell: "BASH"
