@@ -9,7 +9,7 @@ import (
 
 func (s *Service) Get(ctx context.Context, spec service.UserGetSpec) (result service.UserGetResult, err error) {
     getResult, err := s.userRepository.Get(ctx, repository.UserGetSpec{
-        ID: spec.ID,
+        IDs: []string{spec.ID},
     })
     if err != nil {
         return result, err

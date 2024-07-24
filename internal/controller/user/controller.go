@@ -21,6 +21,7 @@ func NewController(
     c.Identity()
     c.Get()
     c.List()
+    c.Feed()
     c.SignUp()
     c.Follow()
     c.Unfollow()

@@ -6,19 +6,67 @@ import (
     "github.com/danieljuvito/iohub-server/internal/domain/model"
     "go.mongodb.org/mongo-driver/bson"
     "go.mongodb.org/mongo-driver/bson/primitive"
+    "go.mongodb.org/mongo-driver/mongo"
 )
 
 func (r *Repository) Get(ctx context.Context, spec repository.FolloweeGetSpec) (result repository.FolloweeGetResult, err error) {
-    orQuery := bson.A{}
-    if len(spec.UserID) != 0 {
-        objectID, _ := primitive.ObjectIDFromHex(spec.UserID)
-        orQuery = append(orQuery, bson.M{"user_id": objectID})
+    objectID, _ := primitive.ObjectIDFromHex(spec.UserID)
+    pipelineQuery := mongo.Pipeline{
+        bson.D{
+            {"$match", bson.D{
+                {"user_id", objectID},
+            }},
+        },
     }
-    query := bson.D{}
-    if len(orQuery) != 0 {
-        query = append(query, bson.E{Key: "$or", Value: orQuery})
+    if spec.WithStory {
+        pipelineQuery = append(pipelineQuery,
+            bson.D{
+                {"$lookup", bson.D{
+                    {"from", "stories"},
+                    {"localField", "followee_user_id"},
+                    {"foreignField", "user_id"},
+                    {"as", "stories"},
+                }},
+            },
+            bson.D{
+                {"$project", bson.D{
+                    {"user_id", 1},
+                    {"followee_user_id", 1},
+                    {"stories", bson.D{
+                        {"$filter", bson.D{
+                            {"input", "$stories"},
+                            {"as", "story"},
+                            {"cond", bson.D{
+                                {"$gt", bson.A{"$$story.expires_at", spec.ExpiresAt}},
+                            }},
+                        }},
+                    }},
+                }},
+            },
+            bson.D{
+                {"$match", bson.D{
+                    {"stories.0", bson.D{
+                        {"$exists", true},
+                    }},
+                }},
+            },
+        )
     }
-    res, err := r.collection.Find(ctx, query)
+    if spec.Page != 0 {
+        pipelineQuery = append(pipelineQuery,
+            bson.D{
+                {"$skip", (spec.Page - 1) * spec.Limit},
+            },
+        )
+    }
+    if spec.Limit != 0 {
+        pipelineQuery = append(pipelineQuery,
+            bson.D{
+                {"$limit", spec.Limit},
+            },
+        )
+    }
+    res, err := r.collection.Aggregate(ctx, pipelineQuery)
     if err != nil {
         return result, err
     }

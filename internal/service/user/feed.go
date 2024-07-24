@@ -8,23 +8,25 @@ import (
 )
 
 func (s *Service) Feed(ctx context.Context, spec service.UserFeedSpec) (result service.UserFeedResult, err error) {
-    getFolloweeStoriesResult, err := s.userRepository.GetFolloweeStories(ctx, repository.UserGetFolloweeStoriesSpec{
-        UserID:       spec.UserID,
-        ExpiresAfter: s.time.Now(),
-        Limit:        spec.Limit,
-        Page:         spec.Page,
+    getFolloweeResult, err := s.followeeRepository.Get(ctx, repository.FolloweeGetSpec{
+        UserID:    spec.UserID,
+        WithStory: true,
+        Limit:     spec.Limit,
+        Page:      spec.Page,
+        ExpiresAt: s.time.Now(),
     })
     if err != nil {
         return result, err
     }
 
     followeeUserIDs := make([]string, 0)
-    for _, followee := range getFolloweeStoriesResult.Data {
-        followeeUserIDs = append(followeeUserIDs, followee.ID)
+    for _, followee := range getFolloweeResult.Data {
+        followeeUserIDs = append(followeeUserIDs, followee.FolloweeUserID)
     }
 
     getStoryResult, err := s.storyRepository.Get(ctx, repository.StoryGetSpec{
-        UserIDs: followeeUserIDs,
+        UserIDs:      followeeUserIDs,
+        ExpiresAfter: s.time.Now(),
     })
     if err != nil {
         return result, err
@@ -35,7 +37,14 @@ func (s *Service) Feed(ctx context.Context, spec service.UserFeedSpec) (result s
         storiesByUserID[story.UserID] = append(storiesByUserID[story.UserID], story)
     }
 
-    for _, user := range getFolloweeStoriesResult.Data {
+    getUserResult, err := s.userRepository.Get(ctx, repository.UserGetSpec{
+        IDs: followeeUserIDs,
+    })
+    if err != nil {
+        return result, err
+    }
+
+    for _, user := range getUserResult.Data {
         result.Data = append(result.Data, service.UserFeedResultData{
             User:    user,
             Stories: storiesByUserID[user.ID],

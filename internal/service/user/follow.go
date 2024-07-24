@@ -10,7 +10,7 @@ import (
 
 func (s *Service) Follow(ctx context.Context, spec service.UserFollowSpec) (result service.UserFollowResult, err error) {
     getResult, err := s.userRepository.Get(ctx, repository.UserGetSpec{
-        ID: spec.FolloweeUserID,
+        IDs: []string{spec.FolloweeUserID},
     })
     if err != nil {
         return result, err

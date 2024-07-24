@@ -18,9 +18,16 @@ func (r Repository) Get(ctx context.Context, spec repository.UserGetSpec) (resul
         opts = opts.SetSkip(int64((spec.Page - 1) * spec.Limit))
     }
     orQuery := bson.A{}
-    if spec.ID != "" {
-        objectID, _ := primitive.ObjectIDFromHex(spec.ID)
-        orQuery = append(orQuery, bson.M{"_id": objectID})
+    if len(spec.IDs) != 0 {
+        var userIDs []primitive.ObjectID
+        for _, id := range spec.IDs {
+            objectID, err := primitive.ObjectIDFromHex(id)
+            if err != nil {
+                return result, nil
+            }
+            userIDs = append(userIDs, objectID)
+        }
+        orQuery = append(orQuery, bson.M{"_id": bson.M{"$in": userIDs}})
     }
     if spec.Email != "" {
         orQuery = append(orQuery, bson.M{"email": spec.Email})

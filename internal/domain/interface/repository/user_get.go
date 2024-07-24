@@ -3,7 +3,7 @@ package repository
 import "github.com/danieljuvito/iohub-server/internal/domain/model"
 
 type UserGetSpec struct {
-    ID    string
+    IDs   []string
     Email string
     Name  string
     Page  int

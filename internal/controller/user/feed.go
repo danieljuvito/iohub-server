@@ -13,9 +13,10 @@ type FeedRequest struct {
 }
 
 type FeedResponse struct {
-    UserID   string   `json:"user_id"`
-    Name     string   `json:"name"`
-    StoryIDs []string `json:"story_ids"`
+    UserID     string `json:"user_id"`
+    Name       string `json:"name"`
+    StoryCount int    `json:"story_count"`
+    IsFollowed bool   `json:"is_followed"`
 }
 
 func (c *controller) Feed() {
@@ -38,15 +39,11 @@ func (c *controller) Feed() {
 
         response := make([]FeedResponse, 0)
         for _, data := range res.Data {
-            storyIDs := make([]string, 0)
-            for _, story := range data.Stories {
-                storyIDs = append(storyIDs, story.ID)
-            }
-
             response = append(response, FeedResponse{
-                UserID:   data.User.ID,
-                Name:     data.Name,
-                StoryIDs: storyIDs,
+                UserID:     data.User.ID,
+                Name:       data.Name,
+                StoryCount: len(data.Stories),
+                IsFollowed: true,
             })
         }
 

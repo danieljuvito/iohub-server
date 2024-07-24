@@ -10,7 +10,7 @@ import (
 
 func (s *Service) Unfollow(ctx context.Context, spec service.UserUnfollowSpec) (result service.UserUnfollowResult, err error) {
     getResult, err := s.userRepository.Get(ctx, repository.UserGetSpec{
-        ID: spec.FolloweeUserID,
+        IDs: []string{spec.FolloweeUserID},
     })
     if err != nil {
         return result, err
