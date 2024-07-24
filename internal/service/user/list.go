@@ -17,6 +17,10 @@ func (s *Service) List(ctx context.Context, spec service.UserListSpec) (result s
         return result, err
     }
 
+    if len(getUserResult.Data) == 0 {
+        return result, nil
+    }
+
     getFolloweeResult, err := s.followeeRepository.Get(ctx, repository.FolloweeGetSpec{
         UserID: spec.UserID,
     })

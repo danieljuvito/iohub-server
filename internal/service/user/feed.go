@@ -19,6 +19,10 @@ func (s *Service) Feed(ctx context.Context, spec service.UserFeedSpec) (result s
         return result, err
     }
 
+    if len(getFolloweeResult.Data) == 0 {
+        return result, nil
+    }
+
     followeeUserIDs := make([]string, 0)
     for _, followee := range getFolloweeResult.Data {
         followeeUserIDs = append(followeeUserIDs, followee.FolloweeUserID)
