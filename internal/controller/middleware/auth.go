@@ -61,7 +61,7 @@ func Auth(next echo.HandlerFunc) echo.HandlerFunc {
 
         c.Set("session", model.Session{
             ID:        entity.ID.Hex(),
-            UserID:    entity.UserID,
+            UserID:    entity.UserID.Hex(),
             ExpiresAt: entity.ExpiresAt,
         })
 

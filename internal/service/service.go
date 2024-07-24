@@ -16,8 +16,8 @@ type Service struct {
 
 func NewService(r *repository.Repository) *Service {
     return &Service{
-        UserService:    user.NewService(r.UserRepository, r.FolloweeRepository, r.FollowerRepository),
+        UserService:    user.NewService(r.UserRepository, r.FolloweeRepository, r.FollowerRepository, r.StoryRepository),
         SessionService: session.NewService(r.UserRepository, r.SessionRepository),
-        StoryService:   story.NewService(r.UserRepository, r.StoryRepository),
+        StoryService:   story.NewService(r.StoryRepository),
     }
 }

@@ -9,8 +9,12 @@ import (
 func (r Repository) Create(ctx context.Context, spec repository.SessionCreateSpec) (result repository.SessionCreateResult, err error) {
     var entities []interface{}
     for _, model := range spec.Models {
+        userID, err := primitive.ObjectIDFromHex(model.UserID)
+        if err != nil {
+            return result, err
+        }
         entities = append(entities, &Entity{
-            UserID:    model.UserID,
+            UserID:    userID,
             ExpiresAt: model.ExpiresAt,
         })
     }

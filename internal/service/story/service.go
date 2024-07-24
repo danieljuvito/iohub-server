@@ -8,17 +8,14 @@ import (
 
 type Service struct {
     time            timeutil.Time
-    userRepository  repository.User
     storyRepository repository.Story
 }
 
 func NewService(
-    userRepository repository.User,
     storyRepository repository.Story,
 ) service.Story {
     return &Service{
         time:            timeutil.NewTime(),
-        userRepository:  userRepository,
         storyRepository: storyRepository,
     }
 }

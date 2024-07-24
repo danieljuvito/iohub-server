@@ -7,6 +7,6 @@ import (
 
 type Entity struct {
     ID        primitive.ObjectID `bson:"_id,omitempty"`
-    UserID    string             `bson:"user_id"`
+    UserID    primitive.ObjectID `bson:"user_id"`
     ExpiresAt time.Time          `bson:"expires_at"`
 }
