@@ -60,6 +60,11 @@ func main() {
     middleware.InitAuth(db)
 
     e := echo.New()
+    e.GET("/ws", func(c echo.Context) error {
+        
+    })
+
+    r := repository.NewRepository(db)
 
     controller.NewController(e,
         service.NewService(
