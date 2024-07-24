@@ -12,6 +12,17 @@ func (r *Repository) Get(ctx context.Context, specs ...repository.StoryGetSpec) 
     query := bson.D{}
     for _, spec := range specs {
         orQuery := bson.A{}
+        if len(spec.IDs) != 0 {
+            var ids []primitive.ObjectID
+            for _, id := range spec.IDs {
+                objectID, err := primitive.ObjectIDFromHex(id)
+                if err != nil {
+                    return result, nil
+                }
+                ids = append(ids, objectID)
+            }
+            orQuery = append(orQuery, bson.M{"_id": bson.M{"$in": ids}})
+        }
         if len(spec.UserIDs) != 0 {
             var userIDs []primitive.ObjectID
             for _, id := range spec.UserIDs {
