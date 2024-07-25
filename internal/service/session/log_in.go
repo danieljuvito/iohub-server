@@ -48,6 +48,7 @@ func (s *Service) LogIn(ctx context.Context, spec service.SessionLogInSpec) (res
         return result, err
     }
 
+    result.UserID = user.ID
     result.Token = token
 
     return result, nil

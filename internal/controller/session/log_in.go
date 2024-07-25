@@ -12,7 +12,8 @@ type LogInRequest struct {
 }
 
 type LogInResponse struct {
-    Token string `json:"token"`
+    UserID string `json:"user_id"`
+    Token  string `json:"token"`
 }
 
 // LogIn handles user login requests.
@@ -44,7 +45,8 @@ func (c *controller) LogIn() {
         }
 
         return e.JSON(http.StatusOK, LogInResponse{
-            Token: res.Token,
+            UserID: res.UserID,
+            Token:  res.Token,
         })
     })
 }

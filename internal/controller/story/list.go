@@ -3,6 +3,7 @@ package story
 import (
     "github.com/danieljuvito/iohub-server/internal/controller/middleware"
     "github.com/danieljuvito/iohub-server/internal/domain/interface/service"
+    "github.com/danieljuvito/iohub-server/internal/domain/model"
     "github.com/labstack/echo/v4"
     "net/http"
 )
@@ -26,6 +27,11 @@ func (c *controller) List() {
         ctx := e.Request().Context()
 
         userID := e.QueryParam("user_id")
+
+        if userID == "" {
+            session := e.Get("session").(model.Session)
+            userID = session.UserID
+        }
 
         res, err := c.storyService.List(ctx, service.StoryListSpec{
             UserID: userID,
