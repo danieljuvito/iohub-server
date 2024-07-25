@@ -3,9 +3,11 @@ package main
 import (
     "github.com/danieljuvito/iohub-server/internal/controller"
     "github.com/danieljuvito/iohub-server/internal/controller/middleware"
+    "github.com/danieljuvito/iohub-server/internal/notification"
     "github.com/danieljuvito/iohub-server/internal/repository"
     "github.com/danieljuvito/iohub-server/internal/service"
     "github.com/danieljuvito/iohub-server/internal/util/mongo"
+    "github.com/danieljuvito/iohub-server/internal/util/websocketutil"
     "github.com/joho/godotenv"
     "github.com/labstack/echo/v4"
     "log"
@@ -55,17 +57,24 @@ func main() {
         panic(err)
     }
 
+    hub := websocketutil.NewHub()
+    go hub.Run()
+
     db := client.Database("iohub")
 
     middleware.InitAuth(db)
 
     e := echo.New()
 
-    controller.NewController(e,
-        service.NewService(
-            repository.NewRepository(db),
-        ),
-    )
+    e.GET("/ws", func(c echo.Context) error {
+        websocketutil.Serve(hub, c.Response(), c.Request())
+        return nil
+    })
+
+    n := notification.NewNotification(hub)
+    r := repository.NewRepository(db)
+    s := service.NewService(r, n)
+    controller.NewController(e, s)
 
     apiPort := "8080"
     if apiPortEnv, err := strconv.Atoi(os.Getenv("PORT")); err == nil {
