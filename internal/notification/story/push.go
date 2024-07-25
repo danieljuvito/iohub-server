@@ -2,12 +2,16 @@ package story
 
 import (
     "context"
+    "encoding/json"
     "github.com/danieljuvito/iohub-server/internal/domain/interface/notification"
-    "golang.org/x/net/websocket"
 )
 
 func (n *Notification) Push(ctx context.Context, spec notification.StoryPushSpec) (result notification.StoryPushResult, err error) {
-    err = websocket.JSON.Send(n.ws, spec)
+    marshal, err := json.Marshal(spec)
+    if err != nil {
+        return result, err
+    }
+    n.hub.Send(marshal)
     if err != nil {
         return result, err
     }

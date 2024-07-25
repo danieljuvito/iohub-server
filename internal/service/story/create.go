@@ -40,7 +40,8 @@ func (s *Service) Create(ctx context.Context, spec service.StoryCreateSpec) (res
     }
 
     _, err = s.storyNotification.Push(ctx, notification.StoryPushSpec{
-        UserIDs: followerUserIDs,
+        FolloweeID:  spec.UserID,
+        FollowerIDs: followerUserIDs,
     })
 
     if err != nil {

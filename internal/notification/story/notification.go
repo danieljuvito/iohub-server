@@ -2,15 +2,15 @@ package story
 
 import (
     "github.com/danieljuvito/iohub-server/internal/domain/interface/notification"
-    "golang.org/x/net/websocket"
+    "github.com/danieljuvito/iohub-server/internal/util/websocketutil"
 )
 
 type Notification struct {
-    ws *websocket.Conn
+    hub *websocketutil.Hub
 }
 
-func NewNotification(ws *websocket.Conn) notification.Story {
+func NewNotification(hub *websocketutil.Hub) notification.Story {
     return &Notification{
-        ws: ws,
+        hub: hub,
     }
 }
