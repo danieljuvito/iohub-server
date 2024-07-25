@@ -6,5 +6,6 @@ type SessionLogInSpec struct {
 }
 
 type SessionLogInResult struct {
-    Token string
+    UserID string
+    Token  string
 }

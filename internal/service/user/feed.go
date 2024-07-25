@@ -10,7 +10,7 @@ import (
 func (s *Service) Feed(ctx context.Context, spec service.UserFeedSpec) (result service.UserFeedResult, err error) {
     getFolloweeResult, err := s.followeeRepository.Get(ctx, repository.FolloweeGetSpec{
         UserID:    spec.UserID,
-        WithStory: true,
+        WithStory: false,
         Limit:     spec.Limit,
         Page:      spec.Page,
         ExpiresAt: s.time.Now(),

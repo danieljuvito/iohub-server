@@ -404,6 +404,9 @@ const docTemplate = `{
             "properties": {
                 "token": {
                     "type": "string"
+                },
+                "user_id": {
+                    "type": "string"
                 }
             }
         },
