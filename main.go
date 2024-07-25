@@ -3,11 +3,13 @@ package main
 import (
     "github.com/danieljuvito/iohub-server/internal/controller"
     "github.com/danieljuvito/iohub-server/internal/controller/middleware"
+    "github.com/danieljuvito/iohub-server/internal/notification"
     "github.com/danieljuvito/iohub-server/internal/repository"
     "github.com/danieljuvito/iohub-server/internal/service"
     "github.com/danieljuvito/iohub-server/internal/util/mongo"
     "github.com/joho/godotenv"
     "github.com/labstack/echo/v4"
+    "golang.org/x/net/websocket"
     "log"
     "os"
     "strconv"
@@ -60,17 +62,22 @@ func main() {
     middleware.InitAuth(db)
 
     e := echo.New()
+
+    var ws *websocket.Conn
     e.GET("/ws", func(c echo.Context) error {
-        
+        websocket.Handler(func(_ws *websocket.Conn) {
+            defer _ws.Close()
+            for {
+                ws = _ws
+            }
+        }).ServeHTTP(c.Response(), c.Request())
+        return nil
     })
 
+    n := notification.NewNotification(ws)
     r := repository.NewRepository(db)
-
-    controller.NewController(e,
-        service.NewService(
-            repository.NewRepository(db),
-        ),
-    )
+    s := service.NewService(r, n)
+    controller.NewController(e, s)
 
     apiPort := "8080"
     if apiPortEnv, err := strconv.Atoi(os.Getenv("PORT")); err == nil {

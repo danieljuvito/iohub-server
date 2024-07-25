@@ -6,11 +6,11 @@ import (
 )
 
 type Notification struct {
-    w *websocket.Conn
+    ws *websocket.Conn
 }
 
-func NewNotification(w *websocket.Conn) notification.Story {
+func NewNotification(ws *websocket.Conn) notification.Story {
     return &Notification{
-        w: w,
+        ws: ws,
     }
 }

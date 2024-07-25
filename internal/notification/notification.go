@@ -10,8 +10,8 @@ type Notification struct {
     StoryNotification notification.Story
 }
 
-func NewNotification(w *websocket.Conn) *Notification {
+func NewNotification(ws *websocket.Conn) *Notification {
     return &Notification{
-        StoryNotification: story.NewNotification(w),
+        StoryNotification: story.NewNotification(ws),
     }
 }

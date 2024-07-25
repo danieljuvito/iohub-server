@@ -7,7 +7,7 @@ import (
 )
 
 func (n *Notification) Push(ctx context.Context, spec notification.StoryPushSpec) (result notification.StoryPushResult, err error) {
-    err = websocket.Message.Send(n.w, spec)
+    err = websocket.JSON.Send(n.ws, spec)
     if err != nil {
         return result, err
     }
