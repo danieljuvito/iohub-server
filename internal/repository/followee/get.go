@@ -18,7 +18,7 @@ func (r *Repository) Get(ctx context.Context, spec repository.FolloweeGetSpec) (
             }},
         },
     }
-    if spec.WithStory {
+    if !spec.ExpiresAt.IsZero() {
         pipelineQuery = append(pipelineQuery,
             bson.D{
                 {"$lookup", bson.D{
@@ -40,13 +40,6 @@ func (r *Repository) Get(ctx context.Context, spec repository.FolloweeGetSpec) (
                                 {"$gt", bson.A{"$$story.expires_at", spec.ExpiresAt}},
                             }},
                         }},
-                    }},
-                }},
-            },
-            bson.D{
-                {"$match", bson.D{
-                    {"stories.0", bson.D{
-                        {"$exists", true},
                     }},
                 }},
             },
